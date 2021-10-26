@@ -8,88 +8,42 @@ public class Country {
     private int populationCapital;
 
     public Country(String name,  int square, int population) {
-        try {
-            setName(name);
-            setSquare (square);
-            setPopulation(population);
-            this.capital = "столица отсутствует";
-        }
-        catch(NameCountryException e) {
-            System.out.println("Укажите наименование страны.");
-        }
-        catch(SquareCountryException e) {
-            System.out.println("Площадь страны не может быть менее 0.");
-        }
-        catch(PopulationCountryException e) {
-            System.out.println("Население страны не может быть менее 0.");
-        }
+
+        setName(name);
+        setSquare(square);
+        setPopulation(population);
+        this.capital = "столица отсутствует";
+
     }
 
-    public Country(String name, int square, int population, String capital, int populationCapital) {
-        try {
-            setName(name);
-            setSquare (square);
-            setPopulation(population);
-            setCapital(capital);
-            setPopulationCapital(populationCapital);
-        }
-        catch(NameCountryException e) {
-            System.out.println("Укажите наименование страны.");
-        }
-        catch(SquareCountryException e) {
-            System.out.println("Площадь страны не может быть менее 0.");
-        }
-        catch(PopulationCountryException e) {
-            System.out.println("Население страны не может быть менее 0.");
-        }
-    }
+    public Country(String name, int square, int population, String capital) {
 
+        this(name, square, population);
+        setCapital(capital);
+
+    }
 
     public Country(String name, int square, String capital) {
-        try{
+
             setName(name);
             setSquare(square);
             setCapital(capital);
-        }
-        catch(NameCountryException e) {
-            System.out.println("Укажите наименование страны.");
-        }
-        catch(SquareCountryException e) {
-            System.out.println("Площадь страны не может быть менее 0.");
-        }
-    }
 
-    public Country(String name, int square, int population, String capital) throws NameCountryException, SquareCountryException, PopulationCountryException {
-        try {
-            setName(name);
-            setSquare (square);
-            setPopulation(population);
-            setCapital(capital);
-        }
-        catch(NameCountryException e) {
-            System.out.println("Укажите наименование страны.");
-        }
-        catch(SquareCountryException e) {
-            System.out.println("Площадь страны не может быть менее 0.");
-        }
-        catch(PopulationCountryException e) {
-            System.out.println("Население страны не может быть менее 0.");
-        }
     }
 
     public Country(String name, int square, String capital, int populationCapital) {
-        try {
-            setName(name);
-            setSquare(square);
-            setCapital(capital);
+
+            this(name, square, capital);
             setPopulationCapital(populationCapital);
-        }
-        catch(NameCountryException e) {
-            System.out.println("Укажите наименование страны.");
-        }
-        catch(SquareCountryException e) {
-            System.out.println("Площадь страны не может быть менее 0.");
-        }
+
+    }
+
+
+    public Country(String name, int square, int population, String capital, int populationCapital) {
+
+            this(name, square, population, capital);
+            setPopulationCapital(populationCapital);
+
     }
 
     public String getName() {
@@ -112,59 +66,64 @@ public class Country {
         return populationCapital;
     }
 
-    public void setName(String name) throws NameCountryException {
+    public void setName(String name) {
         if(name != null && !name.equals("")) {
             this.name = name;
         }
         else {
-            throw new NameCountryException("Не указано наименование страны.");
+            throw new IllegalArgumentException();
         }
     }
 
-    public void setSquare(int square) throws SquareCountryException {
+    public void setSquare(int square) {
         if (square > 0) {
             this.square = square;
         }
         else {
-            throw new SquareCountryException("Площадь страны не может быть менее 0.");
+            throw new IllegalArgumentException();
         }
     }
 
-    public void setPopulation(int population) throws PopulationCountryException {
+    public void setPopulation(int population) {
         if(population > 0) {
             this.population = population;
         }
         else {
-            throw new PopulationCountryException("Население страны не может быть менее 0.");
+            throw new IllegalArgumentException();
         }
     }
 
     public void setCapital(String capital) {
-        this.capital = capital;
+        if(capital != null && !capital.equals(" ")) {
+            this.capital = capital;
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public void setPopulationCapital(int populationCapital) {
         this.populationCapital = populationCapital;
     }
 
-    public static void print(Country country) {
-        if(country.population == 0 && country.populationCapital == 0) {
-            System.out.println("Название страны: " + country.name + ", площадь страны: " + country.square + " кв. км., размер населения страны: не известно, столица: " + country.capital + ", количество жителей столицы: не известно");
+    public void print() {
+        if(population == 0 && populationCapital == 0) {
+            System.out.println("Название страны: " + name + ", площадь страны: " + square + " кв. км., размер населения страны: не известно, столица: " + capital + ", количество жителей столицы: не известно");
         }
-        else if(country.population == 0) {
-            System.out.println("Название страны: " + country.name + ", площадь страны: " + country.square + " кв. км., размер населения страны: не известно, столица: " + country.capital + ", количество жителей столицы:" + country.populationCapital + " чел.");
+        else if(population == 0) {
+            System.out.println("Название страны: " + name + ", площадь страны: " + square + " кв. км., размер населения страны: не известно, столица: " + capital + ", количество жителей столицы:" + populationCapital + " чел.");
         }
-        else if(country.populationCapital == 0) {
-            System.out.println("Название страны: " + country.name + ", площадь страны: " + country.square + " кв. км., размер населения страны: " + country.population + " чел., столица: " + country.capital + ", количество жителей столицы не известно");
+        else if(populationCapital == 0) {
+            System.out.println("Название страны: " + name + ", площадь страны: " + square + " кв. км., размер населения страны: " + population + " чел., столица: " + capital + ", количество жителей столицы не известно");
         }
         else {
-            System.out.println("Название страны: " + country.name + ", площадь страны: " + country.square + " кв. км., размер населения страны: " + country.population + " чел., столица: " + country.capital + ", количество жителей столицы: " + country.populationCapital + " чел.");
+            System.out.println("Название страны: " + name + ", площадь страны: " + square + " кв. км., размер населения страны: " + population + " чел., столица: " + capital + ", количество жителей столицы: " + populationCapital + " чел.");
         }
     }
 
     public static void printAll(Country[] countries) {
-        for(int i = 0; i < countries.length; i++) {
-            Country.print(countries[i]);
+        for(Country country : countries) {
+            country.print();
         }
     }
 }
