@@ -9,6 +9,6 @@ public class Main {
                 new Country("Andorra", 467_000, 85_400, "Andorra la Vella", 22_600),
                 new Country("Singapore", 725, 5_700_000),
         };
-         Country.printAll(countries);
+        Country.printAll(countries);
     }
 }
